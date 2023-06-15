@@ -1,0 +1,31 @@
+name: Hello Actions
+
+on: 
+  push:
+    branches: 
+      - master
+  pull_request:
+    types: [closed]
+
+env: 
+  name: Raybo
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      name: Ray V
+    steps:
+    - name: Run a one-line script
+      run: echo Hello $name!
+
+  pull_requests_only:
+
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: build
+    steps:
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo Hi, $name.
